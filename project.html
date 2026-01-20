@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-lang="page_title">Leadership Masterclass | Project</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- DESIGN TOKENS (Matched to Portfolio.html) --- */
+        :root {
+            --burgundy: #800020;
+            --wood: #C19A6B;
+            --white: #ffffff;
+            --off-white: #f9f9f9;
+            --black: #1a1a1a;
+            --gray: #666666;
+            --ease-smooth: cubic-bezier(0.23, 1, 0.32, 1);
+            --container-width: 1400px;
+        }
+
+        /* --- BASE --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            background-color: var(--white); 
+            color: var(--black); 
+            font-family: 'Lato', sans-serif; 
+            overflow-x: hidden; 
+        }
+
+        h1, h2, h3, h4, h5, h6 { font-family: 'Montserrat', sans-serif; }
+
+        /* --- GLOBAL ASSETS --- */
+        .grid-lines { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; display: flex; justify-content: space-between; padding: 0 5vw; }
+        .line-v { width: 1px; height: 100%; background: rgba(0,0,0,0.05); }
+
+        .loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--burgundy); z-index: 10000; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: transform 1s var(--ease-smooth); }
+        .loader-line { width: 0%; height: 2px; background: var(--wood); margin-top: 1rem; animation: loadLine 1.2s forwards; }
+        .loader.hide { transform: translateY(-100%); }
+        @keyframes loadLine { to { width: 150px; } }
+
+        /* --- NAV (Exact Copy) --- */
+        nav { position: fixed; top: 0; left: 0; width: 100%; padding: 2rem 0; z-index: 9600; background: transparent; mix-blend-mode: difference; color: white; }
+        .nav-inner { display: flex; justify-content: space-between; align-items: center; max-width: var(--container-width); margin: 0 auto; padding: 0 2rem; }
+        .logo { font-weight: 900; font-size: 1.4rem; letter-spacing: -0.5px; color: white; text-decoration: none; font-family: 'Montserrat'; }
+        
+        .menu-trigger { font-weight: 700; cursor: pointer; font-size: 0.9rem; position: relative; letter-spacing: 1px; color: white; font-family: 'Montserrat'; display: flex; align-items: center; gap: 10px; }
+        .burger { width: 30px; height: 10px; position: relative; display: flex; flex-direction: column; justify-content: space-between; }
+        .burger span { display: block; width: 100%; height: 2px; background: white; transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); }
+        
+        .menu-trigger.active .burger span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .menu-trigger.active .burger span:nth-child(2) { opacity: 0; }
+        .menu-trigger.active .burger span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+        .menu-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #111; z-index: 9500; display: flex; flex-direction: column; justify-content: center; align-items: center; transform: translateY(-100%); transition: transform 0.8s var(--ease-smooth); }
+        .menu-overlay.active { transform: translateY(0); }
+        .menu-link { font-family: 'Montserrat'; font-size: 3.5rem; color: rgba(255,255,255,0.3); text-decoration: none; margin: 0.5rem 0; transition: 0.3s; font-weight: 900; letter-spacing: -1px; }
+        .menu-link:hover { color: white; letter-spacing: 0px; }
+
+        .container { max-width: var(--container-width); margin: 0 auto; padding: 0 2rem; position: relative; z-index: 2; }
+
+        /* --- PROJECT HERO --- */
+        .project-hero {
+            height: 90vh;
+            width: 100%;
+            position: relative;
+            background: #000;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-bg-img {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover; opacity: 0.6; z-index: 0;
+            /* Will be animated by JS scroll */
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-subtitle {
+            font-family: 'Montserrat';
+            font-size: 0.9rem;
+            letter-spacing: 4px;
+            color: var(--wood);
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            opacity: 0; animation: fadeUp 1s forwards 0.5s;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 7rem);
+            font-weight: 900;
+            line-height: 1;
+            letter-spacing: -2px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            opacity: 0; animation: fadeUp 1s forwards 0.7s;
+        }
+
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- PROJECT INFO BAR --- */
+        .info-bar {
+            background: var(--white);
+            padding: 4rem 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .info-item h6 {
+            color: var(--burgundy);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .info-item p {
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: var(--black);
+        }
+
+        /* --- CONTENT SECTION --- */
+        .content-section {
+            padding: 8rem 0;
+        }
+
+        .intro-text {
+            max-width: 900px;
+            margin: 0 auto 6rem auto;
+            font-size: 1.8rem;
+            line-height: 1.6;
+            font-weight: 300;
+            color: var(--black);
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+        }
+
+        .content-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+            margin-bottom: 8rem;
+        }
+
+        .content-row.reverse {
+            direction: rtl; /* Quick way to flip columns */
+        }
+        .content-row.reverse > * { direction: ltr; }
+
+        .text-block h3 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+        }
+
+        .text-block p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .img-block {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .img-block img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.7s var(--ease-smooth);
+        }
+
+        .img-block:hover img { transform: scale(1.05); }
+
+        .full-width-image {
+            width: 100%;
+            height: 80vh;
+            object-fit: cover;
+            margin-bottom: 8rem;
+            display: block;
+        }
+
+        /* --- NEXT PROJECT --- */
+        .next-project {
+            height: 60vh;
+            background: #111;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            overflow: hidden;
+        }
+
+        .next-project-bg {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2053') center/cover;
+            opacity: 0.3;
+            transition: transform 0.7s var(--ease-smooth), opacity 0.5s ease;
+        }
+
+        .next-project:hover .next-project-bg {
+            transform: scale(1.05);
+            opacity: 0.5;
+        }
+
+        .next-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+        }
+
+        .next-label {
+            font-family: 'Montserrat';
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            color: var(--wood);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .next-title {
+            font-size: 4rem;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        /* --- FOOTER (Exact Copy) --- */
+        footer { background: #111; color: white; padding: 6rem 0; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 4rem; }
+        .footer-col h4 { color: var(--wood); margin-bottom: 1.5rem; letter-spacing: 1px; font-family: 'Montserrat', sans-serif; }
+        .footer-col a { color: #888; display: block; margin-bottom: 0.8rem; text-decoration: none; transition: 0.3s; }
+        .footer-col a:hover { color: white; }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .info-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+            .content-row { grid-template-columns: 1fr; gap: 3rem; }
+            .content-row.reverse { direction: ltr; }
+            .intro-text { font-size: 1.4rem; }
+            .hero-title { font-size: 3.5rem; }
+            .grid-lines { display: none; }
+        }
+    </style>
+</head>
+<body class="hover-target">
+
+    <div class="loader"><div class="loader-line"></div></div>
+    <div class="grid-lines"><div class="line-v"></div><div class="line-v"></div><div class="line-v"></div></div>
+
+    <div class="menu-overlay" id="menuOverlay">
+        <a href="index.html" class="menu-link" onclick="toggleMenu()" data-lang="menu_home">HOME</a>
+        <a href="about.html" class="menu-link" onclick="toggleMenu()" data-lang="menu_about">ABOUT</a>
+        <a href="mission.html" class="menu-link" onclick="toggleMenu()" data-lang="menu_mission">MISSION</a>
+        <a href="portfolio.html" class="menu-link" onclick="toggleMenu()" data-lang="menu_portfolio">PORTFOLIO</a>
+        <a href="services.html" class="menu-link" onclick="toggleMenu()" data-lang="menu_services">SERVICES</a>
+        <a href="trainer.html" class="menu-link" onclick="toggleMenu()" data-lang="menu_trainer">TRAINER</a>
+        <a href="contact.html" class="menu-link" onclick="toggleMenu()" data-lang="menu_contact">CONTACT</a>
+    </div>
+
+    <nav>
+        <div class="container"> 
+            <div class="nav-inner">
+                <a href="index.html" class="logo" data-lang="logo_text">THE FULL PICTURE</a>
+                <div style="display: flex; align-items: center; gap: 2.5rem;">
+                    <div class="lang-switch" onclick="toggleLanguage()" style="cursor: pointer; font-weight: 700; font-family: 'Montserrat'; font-size: 0.8rem; letter-spacing: 1px; color: white;">
+                        <span id="lang-btn-text">EN / 中文</span>
+                    </div>
+                    <div class="menu-trigger" onclick="toggleMenu()">
+                        <span class="menu-text" data-lang="menu_trigger">MENU</span>
+                        <div class="burger"><span></span><span></span><span></span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="project-hero">
+        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070" class="header-bg-img" alt="Hero Image">
+        <div class="container hero-content">
+            <span class="hero-subtitle">Corporate Training</span>
+            <h1 class="hero-title">Leadership<br>Masterclass</h1>
+        </div>
+    </header>
+
+    <div class="info-bar">
+        <div class="container">
+            <div class="info-grid">
+                <div class="info-item">
+                    <h4>Client</h4>
+                    <p>Global Tech MNC</p>
+                </div>
+                <div class="info-item">
+                    <h4>Location</h4>
+                    <p>Singapore</p>
+                </div>
+                <div class="info-item">
+                    <h4>Services</h4>
+                    <p>Bazi Audit, Training</p>
+                </div>
+                <div class="info-item">
+                    <h4>Year</h4>
+                    <p>2024</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="content-section">
+        <div class="container">
+            
+            <p class="intro-text fade-in">
+                "The Full Picture provided us with a perspective we never knew we needed. By aligning our leadership strategy with metaphysical principles, we unlocked a new level of cohesion."
+            </p>
+
+            <div class="content-row fade-in">
+                <div class="text-block">
+                    <h3>The Challenge</h3>
+                    <p>The organization was facing a crisis of direction. Despite strong financial performance, internal morale was low, and leadership felt disconnected from their core purpose. They needed a strategy that went beyond standard KPIs—they needed a fundamental shift in energy and perspective.</p>
+                    <p>Our initial audit revealed a clash in the elemental energies of the core C-Suite team, causing friction in decision-making processes.</p>
+                </div>
+                <div class="img-block">
+                    <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=2070" alt="Meeting">
+                </div>
+            </div>
+
+            <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2070" class="full-width-image fade-in" alt="Workshop">
+
+            <div class="content-row reverse fade-in">
+                <div class="text-block">
+                    <h3>The Approach</h3>
+                    <p>We implemented our signature "Leadership Awakening" curriculum. By analyzing the Bazi charts of key stakeholders, we identified the root causes of friction. We then restructured their strategic planning sessions to align with auspicious timing (Qimen Dujia).</p>
+                    <p>The result was a harmonious strategy where every leader operated in their zone of genius, supported by the right environmental energy.</p>
+                </div>
+                <div class="img-block">
+                    <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=2664" alt="Results">
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <a href="portfolio.html" class="next-project">
+        <div class="next-project-bg"></div>
+        <div class="next-content">
+            <span class="next-label">NEXT PROJECT</span>
+            <h2 class="next-title">Sentosa Cove</h2>
+        </div>
+    </a>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4 data-lang="footer_company_name">THE FULL PICTURE</h4>
+                    <p data-lang="footer_company_tagline">Combining Ancient Wisdom and Modern Business Strategy.</p>
+                    <br>
+                    <p data-lang="footer_copyright">© 2025 THE FULL PICTURE LLP.</p>
+                </div>
+                <div class="footer-col">
+                    <h4 data-lang="footer_contact_title">CONTACT</h4>
+                    <p data-lang="footer_contact_email">info@thefullpicture.com</p>
+                    <p data-lang="footer_contact_phone">+65 XXXX XXXX</p>
+                    <p data-lang="footer_contact_location">Singapore</p>
+                </div>
+                <div class="footer-col">
+                    <h4 data-lang="footer_links_title">LINKS</h4>
+                    <a href="about.html" data-lang="footer_links_about">About Us</a>
+                    <a href="services.html" data-lang="footer_links_services">Services</a>
+                    <a href="contact.html" data-lang="footer_links_contact">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // LOADER
+        window.addEventListener('load', () => { setTimeout(() => { document.querySelector('.loader').classList.add('hide'); }, 500); });
+
+        // MENU TOGGLE
+        let menuOpen = false;
+        function toggleMenu() {
+            const overlay = document.getElementById('menuOverlay');
+            const trigger = document.querySelector('.menu-trigger');
+            const menuText = document.querySelector('.menu-text');
+            menuOpen = !menuOpen;
+            if(menuOpen) {
+                overlay.classList.add('active');
+                trigger.classList.add('active');
+                if(menuText) menuText.textContent = "CLOSE";
+            } else {
+                overlay.classList.remove('active');
+                trigger.classList.remove('active');
+                if(menuText) menuText.textContent = "MENU";
+            }
+        }
+
+        // LANGUAGE LOGIC
+        const translations = {
+            "en": {
+                "page_title": "Leadership Masterclass | Project",
+                "menu_home": "HOME", "menu_about": "ABOUT", "menu_mission": "MISSION", "menu_portfolio": "PORTFOLIO", "menu_services": "SERVICES", "menu_trainer": "TRAINER", "menu_contact": "CONTACT", "menu_trigger": "MENU", "logo_text": "THE FULL PICTURE",
+                "footer_company_name": "THE FULL PICTURE", "footer_company_tagline": "Combining Ancient Wisdom and Modern Business Strategy.", "footer_copyright": "© 2025 THE FULL PICTURE LLP.", "footer_contact_title": "CONTACT", "footer_links_title": "LINKS", "footer_links_about": "About Us", "footer_links_services": "Services", "footer_links_contact": "Contact"
+            },
+            "cn": {
+                "page_title": "领导力大师班 | 项目",
+                "menu_home": "首页", "menu_about": "关于", "menu_mission": "使命", "menu_portfolio": "案例", "menu_services": "服务", "menu_trainer": "培训师", "menu_contact": "联系", "menu_trigger": "菜单", "logo_text": "全貌",
+                "footer_company_name": "全貌", "footer_company_tagline": "融汇古老智慧与现代商业策略", "footer_copyright": "© 2025 全貌有限责任合伙", "footer_contact_title": "联系", "footer_links_title": "链接", "footer_links_about": "关于我们", "footer_links_services": "服务", "footer_links_contact": "联系"
+            }
+        };
+
+        let currentLang = localStorage.getItem('tfp_lang') || 'en';
+
+        function updateContent() {
+            const elements = document.querySelectorAll('[data-lang]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-lang');
+                if (translations[currentLang] && translations[currentLang][key]) {
+                    el.innerHTML = translations[currentLang][key];
+                }
+            });
+            const btnText = document.getElementById('lang-btn-text');
+            if(btnText) btnText.innerText = currentLang === 'en' ? 'EN / 中文' : 'English / CN';
+            
+            const menuTextElement = document.querySelector('.menu-text');
+            if (menuTextElement) {
+                if (currentLang === 'en') {
+                    menuTextElement.textContent = menuOpen ? 'CLOSE' : 'MENU';
+                } else {
+                    menuTextElement.textContent = menuOpen ? '关闭' : '菜单';
+                }
+            }
+        }
+
+        function toggleLanguage() {
+            document.body.classList.add('lang-fading');
+            setTimeout(() => {
+                currentLang = currentLang === 'en' ? 'cn' : 'en';
+                localStorage.setItem('tfp_lang', currentLang);
+                updateContent();
+                document.body.classList.remove('lang-fading');
+            }, 300);
+        }
+
+        document.addEventListener('DOMContentLoaded', updateContent);
+
+        // HEADER PARALLAX
+        window.addEventListener('scroll', () => {
+            const scrolled = window.scrollY;
+            const bgImg = document.querySelector('.header-bg-img');
+            if(bgImg) {
+                bgImg.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+
+        // SCROLL REVEAL
+        function checkScroll() {
+            const elements = document.querySelectorAll('.fade-in');
+            elements.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                if (rect.top < windowHeight * 0.9) {
+                    el.style.opacity = 1;
+                    el.style.transform = 'translateY(0)';
+                }
+            });
+        }
+        
+        // Initial setup for fade-in elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.8s ease';
+        });
+        
+        window.addEventListener('scroll', checkScroll);
+        checkScroll();
+    </script>
+</body>
+</html>
