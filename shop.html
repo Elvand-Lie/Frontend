@@ -92,6 +92,13 @@
         position: relative;
     }
 
+    .logo img {
+        width: 100%;        /* Make image fill the width of the box */
+        height: 100%;       /* Make image fill the height of the box */
+        object-fit: contain; /* Ensure the logo doesn't get stretched/distorted */
+        display: block;
+    }
+
     .logo {
         width: 50px;
         height: 50px;
@@ -102,13 +109,6 @@
         align-items: center;
         justify-content: center;
         overflow: hidden;
-    }
-
-    /* Using an SVG here to match the eye logo in your image */
-    .logo svg {
-        width: 70%;
-        height: 70%;
-        fill: #c90000;
     }
 
     /* --- PILL NAVIGATION & DROPDOWNS --- */
@@ -479,10 +479,7 @@
     <header id="header">
         <div class="container nav-wrapper">
             <div class="logo">
-                <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
-                    <path d="M50 30 Q85 30 95 50 Q85 70 50 70 Q15 70 5 50 Q15 30 50 30 Z" fill="none" stroke="#c90000" stroke-width="6"/>
-                    <circle cx="50" cy="50" r="14" fill="#c90000"/>
-                </svg>
+                <img src="image.svg" alt="Logo">
             </div>
             
             <nav class="main-nav">
@@ -503,7 +500,7 @@
                     <span class="nav-link active">Programs <i class="fas fa-chevron-down"></i></span>
                     <ul class="dropdown-menu">
                         <li><a href="programlist.html">Program List</a></li>
-                        <li><a href="programlist.html">Training Programs</a></li>
+                        <li><a href="shop.html">Training Programs</a></li>
                         <li><a href="contact.html">Book Online</a></li>
                         <li><a href="shop2.html">Store</a></li>
                     </ul>
@@ -519,7 +516,7 @@
                 </div>
 
                 <div class="nav-item">
-                    <a href="#" class="nav-link">Projects</a>
+                    <a href="pastEvents.html" class="nav-link">Projects</a>
                 </div>
                 <div class="nav-item">
                     <a href="notifications.html" class="nav-link">Notifications</a>

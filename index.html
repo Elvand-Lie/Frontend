@@ -441,6 +441,7 @@
         font-size: 0.95rem;
         z-index: 10;
         position: relative;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
     }
 
     .service-bg {
@@ -564,8 +565,9 @@
         border-radius: 20px;
         border: 1px solid #444;
         min-height: 400px;
-        background: url('https://placehold.co/400x500/111/444?text=Jose+He') center/cover;
+        background: url('https://media.canva.com/v2/image-resize/format:PNG/height:384/quality:100/uri:ifs%3A%2F%2FM%2Fdd177353-3d18-4658-b26f-c0ab9864aeba/watermark:F/width:579?csig=AAAAAAAAAAAAAAAAAAAAAPv6qixTBDFNs88ATfwDjPvJ5nTFpeuL5GIeP_yXIqnY&exp=1768949680&osig=AAAAAAAAAAAAAAAAAAAAANRtJXkSa_7w80oxhrIwnPuYS9V-KpGwUeARlOFcby4v&signer=media-rpc&x-canva-quality=screen') center/cover;
         box-shadow: -10px 10px 30px rgba(0,0,0,0.5);
+        background-position: center
     }
 
     .trainer-content { flex: 1; }
@@ -655,6 +657,17 @@
         margin-right: -50vw;
     }
 
+    .service-bg::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100px; /* Only covers the top area */
+        background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+        z-index: 2; /* Sits on top of image, below header */
+    }
+
     /* --- RESPONSIVE --- */
     @media (max-width: 900px) {
         .hero-content h1 { font-size: 2.5rem; }
@@ -693,7 +706,7 @@
                     <span class="nav-link">Programs <i class="fas fa-chevron-down"></i></span>
                     <ul class="dropdown-menu">
                         <li><a href="programlist.html">Program List</a></li>
-                        <li><a href="programlist.html">Training Programs</a></li>
+                        <li><a href="shop.html">Training Programs</a></li>
                         <li><a href="contact.html">Book Online</a></li>
                         <li><a href="shop2.html">Store</a></li>
                     </ul>
@@ -709,7 +722,7 @@
                 </div>
 
                 <div class="nav-item">
-                    <a href="#" class="nav-link">Projects</a>
+                    <a href="pastEvents.html" class="nav-link">Projects</a>
                 </div>
                 <div class="nav-item">
                     <a href="notifications.html" class="nav-link">Notifications</a>
@@ -729,8 +742,8 @@
                 Welcome to THE FULL PICTURE—where leaders are born. We offer bilingual training programs, Geomancy, and Strategy to help professionals unlock their true potential.
             </p>
             <div class="cta-group">
-                <button class="btn btn-primary">View Upcoming Courses <i class="fas fa-arrow-right"></i></button>
-                <button class="btn btn-outline">Book a Discovery Call</button>
+                <a href="upcomingEvents.html" class="btn btn-primary">View Upcoming Courses <i class="fas fa-arrow-right"></i></a>
+                <a href="contact.html" class="btn btn-outline">Book a Discovery Call</a>
             </div>
         </div>
     </section>
@@ -765,8 +778,7 @@
                 
                 <div class="service-card reveal">
                     <div class="service-header">Training & Masterclasses</div>
-                    
-                    <div class="service-bg" style="background-image: url('https://placehold.co/400x500/222/555?text=Training+Image');"></div>
+                    <div class="service-bg" style="background-image: url('https://media.canva.com/v2/files/uri:ifs%3A%2F%2FM%2FNUoTt1_ygWyuD3fALICXn1dFsoIVIykzyf5wkxzO0rc.jpg?csig=AAAAAAAAAAAAAAAAAAAAAL3dMkNtl55dKeMi1GnzIz2FQRNs3CoGzU5UFoMbU5YP&exp=1768947132&signer=media-rpc&token=AAIAAU0AL05Vb1R0MV95Z1d5dUQzZkFMSUNYbjFkRnNvSVZJeWt6eWY1d2t4ek8wcmMuanBnAAAAAAGb3XcmYKnkL0xVo73IfNCWoBqXujH-8iylMwRznsdHJpbqJgVb'); background-position: center 20%;"></div>
 
                     <div class="service-overlay">
                         <div class="watermark-text">Training</div>
@@ -808,7 +820,7 @@
 
                 <div class="service-card reveal">
                     <div class="service-header">Auspicious Wealth Items</div>
-                    <div class="service-bg" style="background-image: url('https://placehold.co/400x500/444/777?text=Wealth+Image');"></div>
+                    <div class="service-bg" style="background-image: url('https://media.canva.com/v2/files/uri:ifs%3A%2F%2FM%2F6a09bf7a-df1e-4450-a1b0-aa6763d64ce5?csig=AAAAAAAAAAAAAAAAAAAAABpD7pYwL3UUM20po90tVPb9Gj-RKrZzC7PpNpmLmgTI&exp=1768948721&signer=media-rpc&token=AAIAAU0AJDZhMDliZjdhLWRmMWUtNDQ1MC1hMWIwLWFhNjc2M2Q2NGNlNQAAAAABm92PZWgkErrpzf_gHlMOTLoRJipJzLVv9Jp-lWk2SeCyDLkvRQ');"></div>
 
                     <div class="service-overlay">
                         <div class="watermark-text">Wealth</div>
@@ -845,10 +857,10 @@
             <p class="trainer-bio">
                 Today, he empowers individuals and organizations across Southeast Asia to awaken their potential using tools like Bazi, Ziwei Doushu, and Qimen.
             </p>
-            <button class="learn-more-btn" style="width: auto; padding: 10px 25px;">
+            <a class="learn-more-btn" style="width: 40%; padding: 10px 25px;" href="trainer.html">
                 Read Full Bio 
                 <span class="arrow-circle" style="margin-left: 10px;"><i class="fas fa-arrow-right"></i></span>
-            </button>
+            </a>
         </div>
     </section>
 
